@@ -35,12 +35,18 @@ int ares_get_servers(ares_channel channel,
   struct ares_addr_node *srvr_last = NULL;
   struct ares_addr_node *srvr_curr;
   int status = ARES_SUCCESS;
-  int i;
+  int i;  
+  int first_server = 0;
 
   if (!channel)
     return ARES_ENODATA;
+    
+  if (channel->nservers_change > 0)
+  {
+    first_server = channel->last_server;
+  }
 
-  for (i = 0; i < channel->nservers; i++)
+  for (i = first_server; i < channel->nservers; i++)
     {
       /* Allocate storage for this server node appending it to the list */
       srvr_curr = ares_malloc_data(ARES_DATATYPE_ADDR_NODE);

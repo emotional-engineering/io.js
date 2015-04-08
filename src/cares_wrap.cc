@@ -108,7 +108,7 @@ static void ares_poll_cb(uv_poll_t* watcher, int status, int events) {
   ares_task_t* task = ContainerOf(&ares_task_t::poll_watcher, watcher);
   Environment* env = task->env;
   
-  int status;
+  int close_status;
 
   /* Reset the idle timer */
   uv_timer_again(env->cares_timer_handle());
@@ -125,9 +125,9 @@ static void ares_poll_cb(uv_poll_t* watcher, int status, int events) {
                   events & UV_READABLE ? task->sock : ARES_SOCKET_BAD,
                   events & UV_WRITABLE ? task->sock : ARES_SOCKET_BAD);
                   
-  status = ares_close_old_servers(env->cares_channel());     
+  close_status = ares_close_old_servers(env->cares_channel());     
   
-  if (status != ARES_SUCCESS)
+  if (close_status != ARES_SUCCESS)
   {
     /* error */
   }

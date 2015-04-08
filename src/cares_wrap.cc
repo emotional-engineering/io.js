@@ -107,7 +107,7 @@ static void ares_timeout(uv_timer_t* handle) {
 static void ares_poll_cb(uv_poll_t* watcher, int status, int events) {
   ares_task_t* task = ContainerOf(&ares_task_t::poll_watcher, watcher);
   Environment* env = task->env;
-  
+
   int close_status;
 
   /* Reset the idle timer */
@@ -124,14 +124,11 @@ static void ares_poll_cb(uv_poll_t* watcher, int status, int events) {
   ares_process_fd(env->cares_channel(),
                   events & UV_READABLE ? task->sock : ARES_SOCKET_BAD,
                   events & UV_WRITABLE ? task->sock : ARES_SOCKET_BAD);
-                  
-  close_status = ares_close_old_servers(env->cares_channel());     
-  
+
+  close_status = ares_close_old_servers(env->cares_channel());
+
   if (close_status != ARES_SUCCESS)
-  {
-    /* error */
-  }
-  
+    env->ThrowError("c-ares error");
 }
 
 
@@ -1195,7 +1192,7 @@ static void SetServers(const FunctionCallbackInfo<Value>& args) {
   }
 
   if (err == 0)
-    err = ares_change_servers(env->cares_channel(), &servers[0]); /* gradual addition of servers  */  
+    err = ares_change_servers(env->cares_channel(), &servers[0]);
   else
     err = ARES_EBADSTR;
 

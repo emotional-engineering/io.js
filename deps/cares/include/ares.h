@@ -622,6 +622,10 @@ CARES_EXTERN int ares_set_servers_csv(ares_channel channel,
 
 CARES_EXTERN int ares_get_servers(ares_channel channel,
                                   struct ares_addr_node **servers);
+                                  
+CARES_EXTERN int ares_change_servers(ares_channel channel, struct ares_addr_node* source_servers);     
+
+CARES_EXTERN int ares_close_old_servers(ares_channel channel);
 
 CARES_EXTERN const char *ares_inet_ntop(int af, const void *src, char *dst,
                                         ares_socklen_t size);

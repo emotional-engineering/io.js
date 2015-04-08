@@ -305,6 +305,11 @@ struct ares_channeldata {
 
   ares_sock_create_callback sock_create_cb;
   void *sock_create_cb_data;
+    
+  /* Providing gradual addition of servers */ 
+  int nservers_change;  /* how many servers are changing now */
+  int rotation_state;  
+  
 };
 
 /* return true if now is exactly check time or later */

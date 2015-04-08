@@ -67,6 +67,7 @@ OBJS= \
 		src/bitncmp.o \
 		src/inet_net_pton.o \
 		src/inet_ntop.o \
+        src/ares_change_servers.o \
 
 CFLAGS += -I. -I$(SRCDIR)/include -DHAVE_CONFIG_H
 

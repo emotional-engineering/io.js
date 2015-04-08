@@ -96,7 +96,8 @@
         'src/inet_ntop.c',
         'src/ares_inet_net_pton.h',
         'src/setup_once.h',
-        'src/windows_port.c'
+        'src/windows_port.c',
+        'src/ares_change_servers.c'
       ],
       'conditions': [
         [ 'library=="static_library"', {
